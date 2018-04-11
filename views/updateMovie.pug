@@ -1,0 +1,20 @@
+extends layout.pug
+
+block content
+  .row
+    h4 Title: #{movie.title}
+    h4 Genre: #{movie.genre}
+    h4 Year: #{movie.year}
+    h4 Description: #{movie.description}
+    h4 Review: #{movie.review}
+    p Added #{movie.createdAt}
+    p Updated #{movie.updatedAt}
+
+    form(method='POST' action='/add-movie/'+movie._id)
+      label(for='review') Change your mind? Update your review here:
+      input(type='text', placeholder='New Review', name='review' required)
+      button(type='submit') Update Review
+      a(href='/add-movie') Cancel
+
+    form(method='DELETE' action='/add-movie/delete/'+movie._id)
+      button(type='submit') Delete Entry
