@@ -6,6 +6,9 @@ block content
       h4 Title: #{movie.title}
       h4 Genre: #{movie.genre}
       h4 Review: #{movie.review}
+      h4 Poster:
+      img(src=movie.poster alt='poster' height='360' width='240')
+      br
       a(href='/add-movie/'+movie._id) More Details
     h2 Add your movie here:
       form(method='POST' action='/add-movie')

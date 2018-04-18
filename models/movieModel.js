@@ -9,6 +9,8 @@ var schema = new Schema({
   year: {type: String},
   description: {type: String},
   review: {type: String},
+  //step 2
+  poster: {type: String},
   createdAt: {type: Date},
   updatedAt: {type: Date}
 })

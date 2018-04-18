@@ -4,6 +4,8 @@ var app = express();
 var movieController = require('../controllers/movieController');
 var Movie = require('../models/movieModel');
 var MovieService = movieController.MovieService;
+//step 2 set up movie-art
+const posterFinder = require('movie-art');
 
 router.get('/', (req, res, next)=>{
   MovieService.list()
@@ -26,18 +28,42 @@ router.get('/:movieid', (req, res, next)=>{
 });
 
 router.post('/', (req, res, next)=>{
-  var movie = {
-    title: req.body.title,
-    genre: req.body.genre,
-    year: req.body.year,
-    description: req.body.description,
-    review: req.body.review
-  }
-  MovieService.create(movie)
-    .then(()=>{
-      res.redirect('/add-movie');
-    })
-    .catch((err)=>{console.log(err);});
+  //step 3 - add 'poster' var and try to populate.  If works, add it; if not, avoid it
+//tested with console.log, works
+//last step: add to pug!
+  posterFinder(req.body.title, (err, res)=>{
+    movie = {
+      title: req.body.title,
+      genre: req.body.genre,
+      year: req.body.year,
+      description: req.body.description,
+      poster: res,
+      review: req.body.review
+    };
+
+    MovieService.create(movie);
+  })
+  .then(()=>{
+    res.redirect('/add-movie');
+  })
+  .catch((err)=>{console.log(err);});
+  //callback
+
+
+
+
+  //.then(moviePoster;).catch(console.log);
+      /*
+        .then(()=>{
+          console.log(movie);
+          return movie.poster;
+        })
+        .catch((err)=>{
+          console.log(err);
+        });
+        */
+
+
 });
 
 router.post('/:movieid', (req, res, next)=>{
@@ -52,6 +78,14 @@ router.post('/:movieid', (req, res, next)=>{
         res.redirect('/add-movie');
       })
     })
+    .catch((err)=>{console.log(err);});
+});
+
+router.post('/delete/:movieid', (req, res, next)=>{
+  MovieService.delete(req.params.movieid)
+      .then((movie)=>{
+        res.redirect('/add-movie');
+      })
     .catch((err)=>{console.log(err);});
 });
 

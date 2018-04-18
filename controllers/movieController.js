@@ -1,5 +1,6 @@
 var Movie = require('../models/movieModel');
 
+
 class MovieService{
   // movie get - list
   static list(){

@@ -1,0 +1,7 @@
+Goal: Add Poster to entries
+1. npm install --save imdb-api
+2. require() in app.js
+3. Add 'poster' to movieModel.js
+4. add-movie.js add poster var and try to populate
+5. getPoster(movie)
+6. Add poster to pug add-movie

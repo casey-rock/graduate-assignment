@@ -16,5 +16,5 @@ block content
       button(type='submit') Update Review
       a(href='/add-movie') Cancel
 
-    form(method='DELETE' action='/add-movie/delete/'+movie._id)
+    form(method='POST' action='/add-movie/delete/'+movie._id)
       button(type='submit') Delete Entry
