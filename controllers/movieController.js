@@ -1,4 +1,6 @@
 var Movie = require('../models/movieModel');
+//step 2 set up posterFinder
+const posterFinder = require('movie-art');
 
 
 class MovieService{
@@ -41,6 +43,15 @@ class MovieService{
        movie.save();
        return movie;
      });
+   }
+
+   //gets poster using movie-art package
+   static getPoster(title){
+     return posterFinder(title)
+     .then((poster) => {
+       return poster;
+     })
+     .catch((err) => {console.log(err)});
    }
 }
 
